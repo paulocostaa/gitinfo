@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import json
+from typing import Any
 from urllib import parse, request
 from urllib.error import URLError
 
 from .constants import _COMMITS_URL, _REPOS_URL
 
 
-def fetch_repos(username: str) -> dict:
+def fetch_repos(username: str) -> list[dict[str, Any]]:
     """
     Fetch a user's publicly available repositories from GitHub's REST API.
 
@@ -35,7 +38,7 @@ def fetch_repos(username: str) -> dict:
         raise RuntimeError(f"failed to fetch repositories: {e.reason}") from e
 
 
-def fetch_commits(username: str, repo: str) -> list:
+def fetch_commits(username: str, repo: str) -> list[dict[str, Any]]:
     """
     Fetch a repository's commit list from GitHub's REST API.
 
@@ -76,7 +79,7 @@ def fetch_commits(username: str, repo: str) -> list:
 
 
 # took from https://github.com/evilstdio/gitmail
-def extract_emails(commits: list) -> dict:
+def extract_emails(commits: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """
     Aggregate author contact info from a list of commit objects.
 

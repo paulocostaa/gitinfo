@@ -11,14 +11,23 @@ pip install .
 
 ## Usage
 
-```python
-from gitinfo import fetch_repos, fetch_commits, extract_emails
+Runnable examples live in [`examples/`](examples):
 
-for repo in fetch_repos("paulocostaa"):
-    name = repo.get("name")
-    emails = extract_emails(fetch_commits("paulocostaa", name))
-    print(name, emails)
+- [`examples/fetch_repos.py`](examples/fetch_repos.py) — list a user's
+  public repositories.
+- [`examples/fetch_commits.py`](examples/fetch_commits.py) — list commits
+  from a repository's default branch.
+- [`examples/extract_emails.py`](examples/extract_emails.py) — aggregate
+  commit author emails.
+
+Run one directly:
+
+```sh
+python examples/extract_emails.py
 ```
+
+Each imports its functions from `gitinfo` (`fetch_repos`, `fetch_commits`,
+`extract_emails`) and works as a starting point for your own script.
 
 `extract_emails` returns `{email: {"name": ..., "count": ...}}` and skips
 `noreply.github.com` addresses. Emails come from the API's author fields —
